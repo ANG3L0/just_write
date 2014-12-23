@@ -7,8 +7,16 @@
           <a href='#' class="dropdown-toggle" data-toggle="dropdown" id="navmenu">
            Account <span class="caret"></span></a>
             <ul class="dropdown-menu">
-              <li><%= link_to "Log in", login_path %></li>
-              <li><%= link_to "Sign up", signup_path %></li>
+              <% if logged_in? %>
+                <li><%= link_to "My posts", current_user %></li>
+                <li><%= link_to "Log out", logout_path, method: "delete" %></li>
+                <li class="divider"></li>
+                <li><%= link_to "Change email", '#' %></li>
+                <li><%= link_to "Change password", '#' %></li>
+              <% else %>
+                <li><%= link_to "Log in", login_path %></li>
+                <li><%= link_to "Sign up", signup_path %></li>
+              <% end %>
             </ul>
         </li>
         <li><%= link_to "Contact", contact_path, id: "navmenu" %></li>
