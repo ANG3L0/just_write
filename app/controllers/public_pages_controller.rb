@@ -5,9 +5,6 @@ class PublicPagesController < ApplicationController
   def contact
   end
 
-  def signup
-  end
-
   def login
   end
 end

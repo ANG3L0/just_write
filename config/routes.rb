@@ -3,8 +3,9 @@ Rails.application.routes.draw do
 
   get 'contact' => 'public_pages#contact'
 
-  get 'signup' => 'public_pages#signup'
+  get 'signup' => 'users#new'
   get 'login' => 'public_pages#login'
+  resources :users
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
