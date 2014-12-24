@@ -8,7 +8,7 @@ gem 'font-awesome-rails'
 gem 'bootstrap-will_paginate', '0.0.10'
 gem 'bootstrap-sass',          '3.2.0.0'
 gem 'sass-rails',              '5.0.0.beta1'
-gem 'jquery-rails'
+gem 'jquery-rails',            '4.0.0.beta2'
 gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
