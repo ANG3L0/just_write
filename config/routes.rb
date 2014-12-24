@@ -10,6 +10,18 @@ Rails.application.routes.draw do
   delete 'logout' => 'sessions#destroy'
   get 'signup' => 'users#new'
   resources :users, only: [:show, :new, :create, :destroy]
+  resources :users, only: [], controller: "users/change_passwords" do
+    member do
+      get :change_passwords
+      patch 'change_passwords' => 'users/change_passwords#update'
+    end
+  end
+  resources :users, only: [], controller: "users/change_emails" do
+    member do
+      get :change_emails
+      patch 'change_emails' => 'users/change_emails#update'
+    end
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

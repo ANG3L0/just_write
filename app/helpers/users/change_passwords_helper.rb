@@ -1,0 +1,2 @@
+module Users::ChangePasswordsHelper
+end

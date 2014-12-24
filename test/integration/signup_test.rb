@@ -14,6 +14,16 @@ class SignupTest < ActionDispatch::IntegrationTest
     assert_template 'users/show'
   end
 
+  test "password cannot be blank" do
+    get signup_path
+    assert_no_difference 'User.count' do
+      post users_path, user: { name: "Angelo",
+                             email: "example@example.org",
+                             password: "",
+                             password_confirmation: "" }
+    end
+  end
+
   test "should not be able to signup with invalid info" do
     get signup_path
     #bad email
@@ -43,4 +53,5 @@ class SignupTest < ActionDispatch::IntegrationTest
     end
     assert_template 'users/new'
   end
+
 end

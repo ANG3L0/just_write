@@ -5,7 +5,11 @@ class User < ActiveRecord::Base
   validates :email, presence: true, length: { maximum: 100 },
     format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
   has_secure_password
-  validates :password, length: { minimum: 6 }
+  #allow_blank true is ok since has_secure_password validates on object creation
+  #only other time password touched is changing passwords (ok), and changing emails
+  #where changing emails interprets password as < 6 length since we don't .require it
+  #allow_blank works around this issue
+  validates :password, length: { minimum: 6 }, allow_blank: true
 
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost 

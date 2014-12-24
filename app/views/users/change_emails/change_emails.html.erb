@@ -1,0 +1,24 @@
+<div class="row">
+  <section class="col-lg-6 col-lg-offset-3 col-md-6 col-md-offset-3 col-xs-12 col-sm-offset-0">
+    <div class="well well-lg">
+        <h3>Update email</h3>
+      <%= form_for(@user, url: { controller: "users/change_emails", action: "update" }) do |f| %>
+        <%= render 'shared/error_messages', object: f.object %>
+        <div class="input-group">
+          <span class="input-group-addon">
+            <i class="fa fa-envelope fa-2x icon-2x"></i>
+          </span>
+            <!-- value is empty to force placeholder instead of displaying old email -->
+            <%= f.text_field :email, value: "", class: 'form-control input-lg', placeholder: "New Email" %>
+        </div>
+        <div class="input-group">
+          <span class="input-group-addon">
+            <i class="fa fa-envelope fa-2x icon-2x"></i>
+          </span>
+            <%= f.text_field :email_confirmation, value: "", class: 'form-control input-lg', placeholder: "Email confirmation" %>
+        </div>
+        <%= f.submit "Update email address", class: 'btn btn-primary' %>
+      <% end %>
+    </div> <!-- end well well-lg -->
+  </section>
+</div>
