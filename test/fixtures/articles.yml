@@ -1,4 +1,13 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+most_recent:
+  title: "Antisemitism"
+  content: "Hitler was here."
+  created_at: <%= Time.zone.now %>
+
+a_minute_ago:
+  title: "Antisemitism"
+  content: "Hitler was here."
+  created_at: <%= 1.minute.ago %>
+
 <% 50.times do |n| %>
 post_<%= n %>:
   content: <%= Faker::Lorem.paragraph(2) %>
