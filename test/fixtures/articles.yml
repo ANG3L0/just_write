@@ -1,9 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
-one:
-  content: MyText
-  user_id: 
-
-two:
-  content: MyText
-  user_id: 
+<% 50.times do |n| %>
+post_<%= n %>:
+  content: <%= Faker::Lorem.paragraph(2) %>
+  title: <%= Faker::Name.name %>
+  created_at: <%= 10.minutes.ago %>
+  user: angelo
+<% end %>
