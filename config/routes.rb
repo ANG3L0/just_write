@@ -22,6 +22,7 @@ Rails.application.routes.draw do
       patch 'change_emails' => 'users/change_emails#update'
     end
   end
+	resources :articles, only: [:new, :create, :destroy]
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
