@@ -23,9 +23,10 @@ Rails.application.routes.draw do
       patch 'change_emails' => 'users/change_emails#update'
     end
   end
-	resources :users, only: [] do
+	resources :users, only: [], controller: "articles" do
 		member do
-	    resources :articles
+			get 'drafts' => 'articles#drafts'
+	    resources :articles, only: [:show, :new, :edit, :create, :update, :destroy]
 		end
 	end
 

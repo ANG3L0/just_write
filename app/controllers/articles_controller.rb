@@ -1,13 +1,12 @@
 class ArticlesController < ApplicationController
-	before_action :correct_user, only: [:new, :create, :update, :destroy, :index]
+	before_action :correct_user, only: [:new, :create, :update, :destroy, :drafts]
 
 	#shows all articles that current_user still own (e.g. drafts)
 	#difference between this and 'users#show' is that this needs to be correct_user
 	#anyone can view a user's posts that is published
-	def index
+	def drafts
     @user = User.find_by(id: params[:id])
 		@articles = @user.articles.where(draft: true)
-
 	end
 
 	#show a particular post corresponding to a user
@@ -25,9 +24,9 @@ class ArticlesController < ApplicationController
 	def create
 		@article = current_user.articles.build(article_params)
 		if @article.save
-			if params[:submit] == 'Save draft' || params[:draft]
+			if params[:submit] == 'Save draft'
 				@article.update_attribute(:draft, true)
-				redirect_to root_url
+				redirect_to drafts_user_path(@current_user)
 			else
 				flash[:success] = "Article published!"
 				@article.update_attribute(:draft, false)
@@ -59,7 +58,7 @@ class ArticlesController < ApplicationController
 		end
 
 		def article_params
-			params.require(:article).permit(:title, :content, :draft)
+			params.require(:article).permit(:title, :content)
 		end
 
 end

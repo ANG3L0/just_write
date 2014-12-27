@@ -26,28 +26,34 @@ class ArticlesPublishTest < ActionDispatch::IntegrationTest
 		end
 	end
 
-	# TODO lol make this one day work since draft: true does not 
-	# post to params directly but instead posts into the column.
-	# the code needs params for params[:submit] button or even
-	# params[:draft] made here to tell the code 'hey yes i am a draft'
-	#test "should not see draft in my posts" do
-	#	log_in_as(@user)
-	#	get new_article_path(@user)
-	#	assert_difference 'Article.count', 1 do
-	#	post articles_path, article: { title: "draftking",
-	#																 content: "thisbeledraft",
-	#																 draft: true
-	#															 }
-	#	end
-	#	assert_redirected_to @user
-	#	follow_redirect!
-	#	assert_no_match "draftking", response.body
-	#end
+	test "should not see drafts in post" do
+	 #note: cannot post to draft so only draft articles will be from fixtures
+		log_in_as(@user)
+		get new_article_path(@user)
+		assert_difference 'Article.count', 1 do
+		post articles_path, article: { title: "some post",
+																	 content: "some good content",
+																 }
+		end
+		assert_redirected_to @user
+		follow_redirect!
+		assert_match "some good content", response.body
+		assert_no_match "draftking", response.body
+	end
 
-	#test "should see drafts only in draft-view after posting a draft" do
-	#end
-
-	#test "should see real posts only in my post after posting a real post" do
-	#end
+	test "should see drafts only in draft-view after posting a non-draft post" do
+		log_in_as(@user)
+		get new_article_path(@user)
+		assert_difference 'Article.count', 1 do
+		#post valid post
+		post articles_path, article: { title: "This is not a draft",
+																	 content: "some not so good content",
+																 }
+		end
+		#get draft page
+		get drafts_user_path(@user)
+		assert_match "DraftKing", response.body
+		assert_no_match "This is not a draft", response.body
+	end
 
 end

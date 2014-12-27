@@ -12,7 +12,9 @@ class UsersProfileTest < ActionDispatch::IntegrationTest
 		assert_template 'users/show'
 		@user.articles.each do |article|
 			#assert_match article.title, response.body too hard to escape .title which is a name right now
-			assert_match article.content, response.body
+			if !article.draft
+				assert_match article.content, response.body
+			end
 		end
 	end
 end

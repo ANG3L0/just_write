@@ -22,7 +22,7 @@
 				<% if logged_in? %>
 					<li><%= link_to "New post", new_article_path(current_user) %></li>
 					<li><%= link_to "My posts", current_user %></li>
-					<li><%= link_to "My drafts", articles_path(current_user) %></li>
+					<li><%= link_to "My drafts", drafts_user_path(current_user) %></li>
 				<% end %>
 
         <!-- <li class="dropdown">

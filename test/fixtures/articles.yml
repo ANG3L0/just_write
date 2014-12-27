@@ -27,3 +27,12 @@ post_<%= n %>:
   draft: false
   user: angelo
 <% end %>
+
+<% 50.times do |n| %>
+post_<%= n %>:
+  content: "DraftKing-<%= n %>"
+  title: <%= Faker::Name.name %>
+  created_at: <%= 10.minutes.ago %>
+  draft: true
+  user: angelo
+<% end %>
