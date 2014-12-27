@@ -9,16 +9,17 @@
 		font-family: Georgia, serif;
 		line-height: 2em;
 		font-size: 1.8em;
+		white-space: pre-wrap; //allows whitespace preservation; however, the application code also needs to be shrunk
 	}
 	.content {
-		width: 33em;
+		width: 38em;
 		font-size: 18px;
 		font-family: Georgia, serif;
 		line-height: 1.5;
-		margin-left: 5em;
 		color: #070707;
 		margin-bottom: 1em;
 		margin-top: 0.5em;
+		white-space: pre-wrap;
 	}
 }
 

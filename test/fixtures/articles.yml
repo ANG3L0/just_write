@@ -1,17 +1,29 @@
 most_recent:
   title: "Antisemitism"
   content: "Hitler was here."
+  draft: false
+  user: angelo
   created_at: <%= Time.zone.now %>
 
 a_minute_ago:
   title: "Antisemitism"
   content: "Hitler was here."
+  draft: false
+  user: angelo
   created_at: <%= 1.minute.ago %>
+
+false_positive:
+  title: "dontshowup"
+  content: "dontshowup"
+  draft: false
+  user: angelo
+  created_at: <%= 30.seconds.ago %>
 
 <% 50.times do |n| %>
 post_<%= n %>:
   content: <%= Faker::Lorem.paragraph(2) %>
   title: <%= Faker::Name.name %>
   created_at: <%= 10.minutes.ago %>
+  draft: false
   user: angelo
 <% end %>

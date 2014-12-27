@@ -4,6 +4,7 @@ Rails.application.routes.draw do
   root 'public_pages#home'
 
   get 'contact' => 'public_pages#contact'
+  get 'about' => 'public_pages#about'
 
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
@@ -22,7 +23,11 @@ Rails.application.routes.draw do
       patch 'change_emails' => 'users/change_emails#update'
     end
   end
-	resources :articles, only: [:new, :create, :destroy]
+	resources :users, only: [] do
+		member do
+	    resources :articles
+		end
+	end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
