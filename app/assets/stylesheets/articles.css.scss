@@ -82,6 +82,7 @@ span.timestamp{
 span.score {
 	float: right;
 	font-size: 0.9em;
+	margin-right: 5px;
 }
 
 .draft-edit-btn {
@@ -89,14 +90,24 @@ span.score {
 	display: inline-block;
 	float: right;
 	margin-top: 10px;
+	padding-right: 5px;
 }
 .draft-delete-btn {
 	opacity: 0;
+	padding-right: 5px;
 	display: inline-block;
 	float: right;
 	margin-top: 5px;
 }
 
+.draft-list {
+	border-right: 1px solid $gray-light;
+	border-left: 1px solid $gray-light;
+	&:hover{
+		border-right: 2px solid black;
+		border-left: 2px solid black;
+	}
+}
 //.draft-edit-btn2 {
 //	opacity: 0;
 //	display: inline-block;
