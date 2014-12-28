@@ -108,6 +108,21 @@ span.score {
 		border-left: 2px solid black;
 	}
 }
+
+.thumbsup {
+	padding-bottom: 5px;
+	color: green;
+}
+.thumbsdown {
+	color: red;
+}
+
+.title > a {
+	color: black;
+	&:hover{
+		color: gray;
+	}
+}
 //.draft-edit-btn2 {
 //	opacity: 0;
 //	display: inline-block;

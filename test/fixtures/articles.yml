@@ -33,7 +33,17 @@ post_<%= n %>:
 <% end %>
 
 <% 50.times do |n| %>
-post_<%= n %>:
+post_arthur<%= n %>:
+  content: <%= Faker::Lorem.paragraph(2) %>
+  title: <%= Faker::Name.name %>
+  created_at: <%= 10.minutes.ago %>
+  updated_at: <%= 10.minutes.ago %>
+  draft: false
+  user: arthur
+<% end %>
+
+<% 50.times do |n| %>
+post_draft_angelo<%= n %>:
   content: "DraftKing-<%= n %>"
   title: <%= Faker::Name.name %>
   created_at: <%= 10.hours.ago %>

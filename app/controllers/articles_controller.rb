@@ -13,6 +13,9 @@ class ArticlesController < ApplicationController
 
 	#show a particular post corresponding to a user
 	def show
+		@article = Article.find_by(id: params[:id])
+		@user = @article.user
+		@my_article = current_user?(@user)
 	end
 
 	#create a new article

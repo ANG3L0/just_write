@@ -1,10 +1,15 @@
 <li id="article-<%= article.id %>">
 	<!-- using pre so we cannot have whitespace in the code -->
-		<span class="title"><%= article.title %></span>
+		<span class="title"><%= link_to article.title, article_path(article.id) %></span>
 		<div class="content"><%= article.content %></div>
 		<div class="list-footer">
 			<!--<span class="score label label-success">Rating: 12</span>-->
 			<span class="score label label-danger">Rating: 12</span>
+			<% unless @my_article %>
+				<span class="timestamp"> by <%= link_to @user.name, @user %></span>
+			<% end %>
 			<span class="timestamp">Published <%= time_ago_in_words(article.updated_at) %> ago</span>
+			<% @article = article %>
+			<%= render 'shared/thumbs' %>
 		</div>
 </li>

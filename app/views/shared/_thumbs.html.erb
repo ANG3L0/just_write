@@ -1,0 +1,12 @@
+<% unless @my_article %>
+	<span>
+		<%= link_to '', upvote_article_path(@article.id), 
+			class: "thumbsup fa fa-thumbs-up fa-2x icon-2x", 
+      method: :patch %>
+	</span>
+	<span>
+		<%= link_to '', downvote_article_path(@article.id),
+			class: "thumbsdown fa fa-thumbs-down fa-2x icon-2x",
+			method: :patch %>
+	</span>
+<% end %>

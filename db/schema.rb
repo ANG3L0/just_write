@@ -11,15 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141226232151) do
+ActiveRecord::Schema.define(version: 20141228230428) do
 
   create_table "articles", force: true do |t|
     t.text     "content"
     t.integer  "user_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
     t.text     "title"
-    t.boolean  "draft"
+    t.boolean  "draft",      default: false
+    t.integer  "rating",     default: 3
   end
 
   add_index "articles", ["user_id", "created_at"], name: "index_articles_on_user_id_and_created_at"
@@ -28,10 +29,12 @@ ActiveRecord::Schema.define(version: 20141226232151) do
   create_table "users", force: true do |t|
     t.string   "name"
     t.string   "email"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.string   "password_digest"
     t.string   "remember_digest"
+    t.integer  "score_in",        default: 19
+    t.integer  "score_out",       default: 10
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

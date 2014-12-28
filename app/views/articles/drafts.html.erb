@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-md-8 col-md-offset-2">
-		<% if @user.articles.any? %>
+		<% if @drafts.any? %>
 			<ol class="drafts">
 				<li></li>
 				<%= render partial: 'articles/draft', collection: @drafts  %>

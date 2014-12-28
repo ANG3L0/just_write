@@ -2,6 +2,8 @@ class User < ActiveRecord::Base
 	has_many :articles
   attr_accessor :remember_token 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
+	validates :score_in, presence: true;
+	validates :score_out, presence: true;
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, length: { maximum: 100 },
     format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
@@ -20,6 +22,10 @@ class User < ActiveRecord::Base
   def User.new_token
     SecureRandom.urlsafe_base64
   end
+
+	def User.voting_power(user)
+		user.score_in/user.score_out
+	end
 
   def remember
     self.remember_token = User.new_token

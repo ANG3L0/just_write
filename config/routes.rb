@@ -23,8 +23,18 @@ Rails.application.routes.draw do
       patch 'change_emails' => 'users/change_emails#update'
     end
   end
-			get 'drafts' => 'articles#drafts'
-	    resources :articles, only: [:show, :new, :edit, :create, :update, :destroy]
+	get 'drafts' => 'articles#drafts'
+	resources :articles, only: [:show, :new, :edit, :create, :update, :destroy]
+	resources :articles, only: [], controller: "articles/upvote" do
+		member do
+			patch 'upvote' => 'articles/upvote#upvote'
+		end
+	end
+	resources :articles, only: [], controller: "articles/downvote" do
+		member do
+			patch 'downvote' => 'articles/downvote#downvote'
+		end
+	end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

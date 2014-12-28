@@ -6,6 +6,7 @@ class ArticlesPublishTest < ActionDispatch::IntegrationTest
 		@user = users(:angelo)
 		@user_article = @user.articles.first
 		@other = users(:arthur)
+		@other_article = @other.articles.first
 	end
 
 	test "should be able to publish" do
@@ -104,6 +105,14 @@ class ArticlesPublishTest < ActionDispatch::IntegrationTest
 			}
 		assert_not_equal @user.articles.first.title, "title"
 		assert_not_equal @user.articles.first.content, "content"
+	end
+
+	test "should be able to see other people post" do
+		get user_path(@other)
+		title = @other_article.title
+		content = @other_article.content
+		assert_match title, response.body
+		assert_match content, response.body
 	end
 
 end
