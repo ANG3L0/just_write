@@ -1,5 +1,5 @@
 class Users::ChangeEmailsController < ApplicationController
-  before_action :logged_in_user, only: [:change_emails, :update]
+	before_action :correct_user, only: [:change_emails, :update]
 
 
   def change_emails
@@ -27,11 +27,16 @@ class Users::ChangeEmailsController < ApplicationController
       params.require(:user).permit(:email, :email_confirmation)
     end
 
-    def logged_in_user
-        unless logged_in?
-        flash[:danger] = "Please log in"
-        redirect_to root_url
-      end
-    end
+		def correct_user
+			user = User.find_by(id: params[:id])
+			redirect_to root_url unless current_user?(user)
+		end
+
+    #def logged_in_user
+    #    unless logged_in?
+    #    flash[:danger] = "Please log in"
+    #    redirect_to root_url
+    #  end
+    #end
 
 end

@@ -4,6 +4,7 @@ most_recent:
   draft: false
   user: angelo
   created_at: <%= Time.zone.now %>
+  updated_at: <%= Time.zone.now %>
 
 a_minute_ago:
   title: "Antisemitism"
@@ -11,6 +12,7 @@ a_minute_ago:
   draft: false
   user: angelo
   created_at: <%= 1.minute.ago %>
+  updated_at: <%= 1.minute.ago %>
 
 false_positive:
   title: "dontshowup"
@@ -18,12 +20,14 @@ false_positive:
   draft: false
   user: angelo
   created_at: <%= 30.seconds.ago %>
+  updated_at: <%= 30.seconds.ago %>
 
 <% 50.times do |n| %>
 post_<%= n %>:
   content: <%= Faker::Lorem.paragraph(2) %>
   title: <%= Faker::Name.name %>
   created_at: <%= 10.minutes.ago %>
+  updated_at: <%= 10.minutes.ago %>
   draft: false
   user: angelo
 <% end %>
@@ -32,7 +36,8 @@ post_<%= n %>:
 post_<%= n %>:
   content: "DraftKing-<%= n %>"
   title: <%= Faker::Name.name %>
-  created_at: <%= 10.minutes.ago %>
+  created_at: <%= 10.hours.ago %>
+  updated_at: <%= 10.hours.ago %>
   draft: true
   user: angelo
 <% end %>

@@ -1,0 +1,19 @@
+<li id="article-<%= draft.id %>">
+	<!-- using pre so we cannot have whitespace in the code -->
+	<div>
+		<span class="draft-title"><%= draft.title %></span>
+		<span class="draft-edit-btn"><%= link_to "Edit", edit_article_path(draft), class: "btn btn-primary" %></span>
+		<!-- <span class="draft-edit-btn2">Edit</span>-->
+	</div>
+	<div>
+		<span class="draft-content"><%= draft.content %></span>
+		<!--<span class="draft-delete-btn2">Delete</span> -->
+		<span class="draft-delete-btn"><%= link_to "Delete", draft, method: :delete, 
+			data: { confirm: "Once deleted this can never be retrieved. You sure?" },
+			class: "btn btn-danger" %></span>
+	</div>
+	<div class="list-footer">
+		<span class="score label label-danger">Rating: 12</span>
+		<span class="timestamp">Updated <%= time_ago_in_words(draft.updated_at) %> ago</span>
+	</div>
+</li>

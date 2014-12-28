@@ -23,3 +23,101 @@
 	}
 }
 
+
+.drafts {
+	list-style: none;
+	li {
+		padding: none;
+		border-bottom: 1px solid $gray-light;
+		&:hover{
+			background-color: $gray-lighter;
+			.draft-edit-btn {
+				opacity: 1;
+			}
+			.draft-delete-btn {
+				opacity: 1;
+			}
+		}
+	}
+	.draft-title {
+		display: inline-block;
+		width: 20em;
+		color: gray;
+		font-family: Georgia, serif;
+		line-height: 1.3em;
+		font-size: 1.3em;
+		overflow: hidden;
+		padding-left: 20px;
+		padding-top: 20px;
+		text-overflow: ellipsis;
+		white-space: nowrap; //allows whitespace preservation; however, the application code also needs to be shrunk
+	}
+	.draft-content {
+		display: inline-block;
+		width: 36em;
+		font-size: 15px;
+		font-family: Georgia, serif;
+		color: gray;
+		padding-top: 4px;
+		padding-left: 40px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		margin-bottom: 1em;
+		margin-top: 0.5em;
+	}
+}
+
+.list-footer {
+	overflow: hidden;
+	vertical-align: middle;
+}
+
+span.timestamp{
+	float: right;
+  color: $gray-light;
+	padding-right: 5px;
+}
+
+span.score {
+	float: right;
+	font-size: 0.9em;
+}
+
+.draft-edit-btn {
+	opacity: 0;
+	display: inline-block;
+	float: right;
+	margin-top: 10px;
+}
+.draft-delete-btn {
+	opacity: 0;
+	display: inline-block;
+	float: right;
+	margin-top: 5px;
+}
+
+//.draft-edit-btn2 {
+//	opacity: 0;
+//	display: inline-block;
+//	float: right;
+//	margin-top: 10px;
+//	font-size: 1.8em;
+//	font-weight: bold;
+//	color: $gray-light;
+//	&:hover{
+//		color: $gray;
+//	}
+//}
+//.draft-delete-btn2 {
+//	opacity: 0;
+//	display: inline-block;
+//	float: right;
+//	margin-top: 5px;
+//	font-size: 1.8em;
+//	font-weight: bold;
+//	color: $gray-light;
+//	&:hover{
+//		color: $gray;
+//	}
+//}

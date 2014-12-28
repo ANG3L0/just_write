@@ -4,6 +4,8 @@ class ArticlesPublishTest < ActionDispatch::IntegrationTest
 
 	def setup
 		@user = users(:angelo)
+		@user_article = @user.articles.first
+		@other = users(:arthur)
 	end
 
 	test "should be able to publish" do
@@ -51,9 +53,57 @@ class ArticlesPublishTest < ActionDispatch::IntegrationTest
 																 }
 		end
 		#get draft page
-		get drafts_user_path(@user)
+		get drafts_path(@user)
 		assert_match "DraftKing", response.body
 		assert_no_match "This is not a draft", response.body
+	end
+
+	test "should not be able to post for other users" do
+		get login_path
+		log_in_as(@other)
+		assert_redirected_to @other
+		get new_article_path(@user)
+		assert_redirected_to root_url
+		assert_no_difference 'Article.count' do
+			patch new_article_path(@user), article: { title: "hacker", content: "I hack this." }
+		end
+		assert_redirected_to root_url
+	end
+
+	test "should be able to delete posts for myself" do
+		log_in_as(@user)
+		assert_difference 'Article.count', -1 do
+			delete article_path(@user_article)
+		end
+		assert_redirected_to drafts_path(@user)
+	end
+
+	test "should not be able to delete posts for other users" do
+	  log_in_as(@other)	
+		assert_no_difference 'Article.count' do
+			delete article_path(@user_article)
+		end
+		assert_redirected_to root_url
+	end
+
+	test "should be able to edit posts for self" do
+	  log_in_as(@user)	
+		patch article_path(@user.articles.last.id), 
+			article: { title: "title",
+								 content: "content"
+			}
+		assert_equal @user.articles.first.title, "title"
+		assert_equal @user.articles.first.content, "content"
+	end
+
+	test "should not be able to edit posts for other users" do
+	  log_in_as(@other)	
+		patch article_path(@user.articles.first.id), 
+			article: { title: "title",
+								 content: "content"
+			}
+		assert_not_equal @user.articles.first.title, "title"
+		assert_not_equal @user.articles.first.content, "content"
 	end
 
 end

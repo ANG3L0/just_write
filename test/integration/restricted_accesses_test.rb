@@ -22,12 +22,4 @@ class RestrictedAccessesTest < ActionDispatch::IntegrationTest
 		assert_template 'articles/new'
 	end
 
-	test "should not be able to post for other users" do
-		get login_path
-		log_in_as(@user)
-		assert_redirected_to @user
-		get new_article_path(@other)
-		assert_redirected_to root_url
-	end
-
 end
