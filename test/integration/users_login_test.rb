@@ -36,7 +36,8 @@ class UsersLoginTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_select "a[href=?]", login_path
     assert_select "a[href=?]", logout_path, count: 0
-    assert_select "a[href=?]", user_path(@user), count: 0
+		#this assertion is no longer valid as when I log out I can see links to my own name if I have posted
+    #assert_select "a[href=?]", user_path(@user), count: 0
   end
 
   test "login with remembering" do

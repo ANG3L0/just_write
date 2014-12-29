@@ -5,6 +5,8 @@
 		<div class="list-footer">
 			<% @article = article %>
 			<%= render 'shared/rating' %>
+			<% @user = @article.user %>
+			<% @my_article = current_user?(@user) %>
 			<% unless @my_article %>
 				<span class="timestamp"> by <%= link_to @user.name, @user %></span>
 			<% end %>

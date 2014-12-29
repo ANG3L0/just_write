@@ -1,5 +1,7 @@
 class PublicPagesController < ApplicationController
+
   def home
+		@articles = Article.all.published_and_in_score_order
   end
 
   def contact
@@ -8,6 +10,4 @@ class PublicPagesController < ApplicationController
 	def about
 	end
 
-  def login
-  end
 end
