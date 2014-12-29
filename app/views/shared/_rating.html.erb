@@ -1,0 +1,7 @@
+<span id="article-rating<%= @article.id %>">
+	<% if @article.rating > 5 %>
+		<span class="score label label-success">Rating: <%= @article.rating %></span>
+	<% else %>
+		<span class="score label label-danger">Rating: <%= @article.rating %></span>
+	<% end %>
+</span>

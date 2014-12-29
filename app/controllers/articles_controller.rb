@@ -14,8 +14,12 @@ class ArticlesController < ApplicationController
 	#show a particular post corresponding to a user
 	def show
 		@article = Article.find_by(id: params[:id])
-		@user = @article.user
-		@my_article = current_user?(@user)
+		if @article.nil?
+			redirect_to root_url
+		else
+			@user = @article.user
+			@my_article = current_user?(@user)
+		end
 	end
 
 	#create a new article

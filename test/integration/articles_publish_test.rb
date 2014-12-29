@@ -89,7 +89,7 @@ class ArticlesPublishTest < ActionDispatch::IntegrationTest
 
 	test "should be able to edit posts for self" do
 	  log_in_as(@user)	
-		patch article_path(@user.articles.last.id), 
+		patch article_path(@user.articles.first.id), 
 			article: { title: "title",
 								 content: "content"
 			}

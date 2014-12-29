@@ -22,10 +22,4 @@ class RestrictedAccessesTest < ActionDispatch::IntegrationTest
 		assert_template 'articles/new'
 	end
 
-	test "should not be able to vote for myself" do
-	end
-
-	test "should be able to vote for others" do
-	end
-
 end

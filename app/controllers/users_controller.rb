@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
 		@my_article = current_user?(@user)
-		@articles = @user.articles.published_and_in_order
+		@articles = @user.articles.published_and_in_score_order
   end
 
   def new

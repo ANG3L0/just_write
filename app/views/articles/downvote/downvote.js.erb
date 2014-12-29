@@ -1,0 +1,7 @@
+if (<%= @article.rating %> >= 0) {
+	$("#article-rating<%= @article.id %>").html("<%= j (render 'shared/rating') %>");
+} else {
+	$('#flasher').html("<%= j (render 'shared/flasher') %>").fadeIn().fadeOut(3000);
+	$('#single-article').fadeOut(3000);
+	$("#article-<%= @article.id %>").fadeOut(3000);
+}
