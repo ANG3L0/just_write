@@ -7,3 +7,10 @@ arthur:
   name: "arthur"
   email: "arthur@pbs.org"
   password_digest: <%= User.digest('foobar') %>
+
+power:
+  name: "power user"
+  email: "powpow@pow.net"
+  password_digest:  <%= User.digest('foobar') %>
+  score_in: 100
+  score_out: 1

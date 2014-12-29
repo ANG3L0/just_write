@@ -7,6 +7,7 @@ class ArticleVotingTest < ActionDispatch::IntegrationTest
 		@user_article = @user.articles.first
 		@other = users(:arthur)
 		@other_article = @other.articles.first
+		@power_user = users(:power)
   end
 
 	test "should not be able to vote if not logged in" do
@@ -82,6 +83,64 @@ class ArticleVotingTest < ActionDispatch::IntegrationTest
 			patch downvote_article_path(@user_article.id), nil, { HTTPS: "on", HTTP_REFERER: user_url(@user) }
 			xhr :patch, downvote_article_path(@user_article.id), nil, { HTTPS: "on", HTTP_REFERER: user_url(@user) }
 			@user_article.reload
+		end
+	end
+
+	test "should have voting power decrease to 0 after downvoting enough times" do
+		log_in_as(@user)
+		get user_url(@other)
+		assert_difference 'User.voting_power(@user)', -1 do
+			#10 times is the default number of times for a new user to lose their voting power
+			10.times do
+				#after 3 times, articles.first is referring to the second post since is now the first one
+				patch downvote_article_path(@other.articles.first.id), nil,  { HTTPS: "on", HTTP_REFERER: user_url(@other) }
+			end
+			@user.reload
+		end
+		#now I have no power, my votes should not matter up or down
+		assert_no_difference '@other.articles.first.rating' do
+			10.times do
+				patch downvote_article_path(@other.articles.first.id), nil,  { HTTPS: "on", HTTP_REFERER: user_url(@other) }
+			end
+		end
+		assert_no_difference '@other.articles.first.rating' do
+			10.times do
+				patch upvote_article_path(@other.articles.first.id), nil,  { HTTPS: "on", HTTP_REFERER: user_url(@other) }
+			end
+		end
+		assert_equal User.voting_power(@user), 0
+	end
+
+	test "should have no voting power after upvoting enough times" do
+		log_in_as(@user)
+		get user_url(@other)
+		assert_difference 'User.voting_power(@user)', -1 do
+			10.times do
+				patch upvote_article_path(@other.articles.first.id), nil,  { HTTPS: "on", HTTP_REFERER: user_url(@other) }
+			end
+			@user.reload
+		end
+	end
+
+	test "should have power user destroy a post in one downvote" do
+		log_in_as(@power_user)
+		get user_url(@other)
+		assert_difference 'Article.count', -1 do
+			patch downvote_article_path(@other_article.id), nil, { HTTPS: "on", HTTP_REFERER: user_url(@other) }
+		end
+	end
+
+	test "should not change user's voting power if they are up or downvoting an invalid article" do
+		log_in_as(@power_user)
+		get user_url(@other)
+		assert_difference '@power_user.score_out' do
+			patch downvote_article_path(@other_article.id), nil, { HTTPS: "on", HTTP_REFERER: user_url(@other) }
+			@power_user.reload
+		end
+		assert_no_difference '@power_user.score_out' do
+			patch downvote_article_path(@other_article.id), nil, { HTTPS: "on", HTTP_REFERER: user_url(@other) }
+			patch upvote_article_path(@other_article.id), nil, { HTTPS: "on", HTTP_REFERER: user_url(@other) }
+			@power_user.reload
 		end
 	end
 
