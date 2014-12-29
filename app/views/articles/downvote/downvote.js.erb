@@ -1,3 +1,4 @@
+$("#vote-panel").html("<%= j (render 'layouts/vote_panel') %>");
 if (<%= @article.rating %> >= 0) {
 	$("#article-rating<%= @article.id %>").html("<%= j (render 'shared/rating') %>");
 } else {
