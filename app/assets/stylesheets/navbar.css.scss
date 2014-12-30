@@ -5,6 +5,7 @@
 
 #navmenu {
   font-size: 1.2em;
+	position: relative;
 }
 
 #brand {
@@ -26,4 +27,34 @@
 	margin-top: 1em;
 	font-size: 1em;
 	float: right;
+}
+
+.bottom-align {
+	vertical-align: bottom;
+}
+
+#footer-menu {
+	position: absolute;
+	bottom: 5px;
+	left: 140px;
+	a {
+		&:hover {
+			background-color: #fff !important;
+		}
+	}
+	padding-left: 20px;
+	margin-left: -150px;
+	font-size: 1em;
+}
+
+#random {
+	a {
+		&:hover {
+			background-color: #fff !important;
+		}
+	}
+}
+
+#rand-btn {
+	outline: none;
 }

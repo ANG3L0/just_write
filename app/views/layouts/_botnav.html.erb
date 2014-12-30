@@ -1,0 +1,25 @@
+<nav class="navbar navbar-fixed-bottom">
+  <div class="container bottom-align">
+		<ul class="nav navbar-nav pull-left" id="footer-menu">
+			<li>
+			<div>
+				<%= link_to "About", about_path %>
+			</div>
+			</li>
+			<li>
+			<div style="padding-left: 15px">
+				<%= link_to "Contact", contact_path %>
+			</div>
+			</li>
+		</ul>
+		<ul class="nav navbar-nav pull-right" id="random">
+			<li>
+				<%= link_to '#' do %>
+					<button type="button" class="btn btn-default btn-lg" id="rand-btn">
+						Random Article
+					</button>
+				<% end %>
+			</li>
+		</ul>
+	</div>
+</nav>

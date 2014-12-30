@@ -20,7 +20,12 @@ end
 #create posts
 users = User.order(:created_at).take(6)
 50.times do
-	title = Faker::Name.name
-	content = Faker::Lorem.paragraph(2)
-	users.each { |user| user.articles.create!(content: content, title: title, draft: false) }
+	for user in users
+		title = Faker::Name.name
+		content = "";
+		5.times do
+			content += Faker::Lorem.paragraph(2) + "  ";
+		end
+		user.articles.create!(content: content, title: title, draft: false)
+	end
 end
