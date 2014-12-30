@@ -1,9 +1,12 @@
 <div class="row">
 	<div class="col-md-8 col-md-offset-2">
 		<% if @user.articles.any? %>
-			<ol class="articles">
+			<ol class="articles" id="artview">
 				<%= render @articles %>
 			</ol>
+			<div class="col-md-offset-6" id="infinite-scrolling">
+				<%= will_paginate @articles %>
+			</div>
 		<% end %>
 	</div>
 </div>

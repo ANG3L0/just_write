@@ -8,7 +8,11 @@ class ArticlesController < ApplicationController
 	#anyone can view a user's posts that is published
 	def drafts
 		@user = current_user
-		@drafts = @user.articles.draft_and_in_order
+		@drafts = @user.articles.paginate(page: params[:page], per_page: 15).draft_and_in_order
+		#respond_to do |format|
+		#	format.html
+		#	format.js
+		#end
 	end
 
 	#show a particular post corresponding to a user

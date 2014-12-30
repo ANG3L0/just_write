@@ -1,6 +1,8 @@
 <% if @articles.any? %>
-	<ol class="articles" id="homeview">
+	<ol class="articles" id="artview">
 		<%= render @articles %>
 	</ol>
-	<%= will_paginate @articles %>
+	<div class="col-md-offset-6" id="infinite-scrolling">
+			<%= will_paginate @articles %>
+	</div>
 <% end %>

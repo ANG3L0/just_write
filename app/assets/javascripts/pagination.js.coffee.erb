@@ -1,0 +1,16 @@
+ready = ->
+	jQuery ->
+		if $('#infinite-scrolling').size() > 0
+			$(window).on 'scroll', ->
+				more_posts_url = $('.pagination .next_page a').attr('href')
+				if more_posts_url && $(window).scrollTop() > $(document).height() - $(window).height() - 500
+					console.log('TIGGER JAVA');
+					imagepath = "<%= asset_path('ajax-loader.gif') %>";
+					$('.pagination').html('<img style="display: initial" id="loading" src=' + imagepath + ' alt="Loading..." title="Loading..." />')
+					$.ajax({ dataType: 'script' });
+					$.getScript more_posts_url
+				return
+		return
+
+$(document).ready(ready)
+$(document).on('page:load', ready)

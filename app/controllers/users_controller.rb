@@ -2,7 +2,11 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-		@articles = @user.articles.published_and_in_score_order
+		@articles = @user.articles.paginate(page: params[:page], per_page: 15).published_and_in_score_order
+		respond_to do |format|
+			format.html
+			format.js
+		end
   end
 
   def new
