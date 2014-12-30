@@ -1,7 +1,6 @@
-<% javascript :defaults, 'endless_page' %>
 <% if @articles.any? %>
 	<ol class="articles" id="homeview">
 		<%= render @articles %>
 	</ol>
-
+	<%= will_paginate @articles %>
 <% end %>
