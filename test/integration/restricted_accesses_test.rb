@@ -16,9 +16,15 @@ class RestrictedAccessesTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
   end
 
+	test "should not see other people's drafts" do
+		log_in_as(@other)
+		get user_drafts_path(@user)
+		assert_redirected_to root_url
+	end
+
 	test "should be able to post for myself" do
 		log_in_as(@user)
-		get new_article_path(@user)
+		get new_user_article_path(@user)
 		assert_template 'articles/new'
 	end
 

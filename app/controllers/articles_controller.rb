@@ -1,19 +1,8 @@
 class ArticlesController < ApplicationController
-	before_action :logged_in_user, only: [:new, :create, :update, :destroy, :drafts]
+	before_action :logged_in_user, only: [:new, :create, :update, :destroy]
 	before_action :correct_user_lookup, only: [:edit, :update, :destroy]
-	before_action :correct_user_format, only: [:new, :drafts]
+	before_action :correct_user, only: [:new]
 
-	#shows all articles that current_user still own (e.g. drafts)
-	#difference between this and 'users#show' is that this needs to be correct_user
-	#anyone can view a user's posts that is published
-	def drafts
-		@user = current_user
-		@drafts = @user.articles.paginate(page: params[:page], per_page: 15).draft_and_in_order
-		#respond_to do |format|
-		#	format.html
-		#	format.js
-		#end
-	end
 
 	#show a particular post corresponding to a user
 	def show
@@ -37,7 +26,7 @@ class ArticlesController < ApplicationController
 		if @article.save
 			if params[:submit] == 'Save draft'
 				@article.update_attribute(:draft, true)
-				redirect_to drafts_path(current_user)
+				redirect_to user_drafts_path(current_user)
 			else
 				flash[:success] = "Article published!"
 				@article.update_attribute(:draft, false)
@@ -59,7 +48,7 @@ class ArticlesController < ApplicationController
 			if params[:submit] == 'Save draft'
 				flash[:success] = "Draft saved!"
 				@article.update_attribute(:draft, true)
-				redirect_to drafts_path(current_user)
+				redirect_to user_drafts_path(current_user)
 			else
 				flash[:success] = "Article published!"
 				@article.update_attribute(:draft, false)
@@ -74,7 +63,7 @@ class ArticlesController < ApplicationController
 	def destroy
 		@article.destroy
 		flash[:success] = "Post deleted"
-		redirect_to drafts_path(current_user)
+		redirect_to user_drafts_path(current_user)
 	end
 
 	private 
@@ -83,20 +72,6 @@ class ArticlesController < ApplicationController
 			@article = current_user.articles.find_by(id: params[:id])
 			redirect_to root_url if @article.nil?
 		end
-
-		def correct_user_format
-			user = User.find_by(id: params[:format])
-			unless current_user?(user)
-				redirect_to root_url
-			end
-		end
-
-    def logged_in_user
-        unless logged_in?
-        flash[:danger] = "Please log in"
-        redirect_to root_url
-      end
-    end
 
 		def article_params
 			params.require(:article).permit(:title, :content)

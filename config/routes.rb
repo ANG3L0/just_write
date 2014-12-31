@@ -17,14 +17,19 @@ Rails.application.routes.draw do
       patch 'change_passwords' => 'users/change_passwords#update'
     end
   end
+
+  resources :users, only: [] do
+		get 'drafts' => 'users#drafts'
+		resources :articles, only: [ :new ]
+	end
+
   resources :users, only: [], controller: "users/change_emails" do
     member do
       get :change_emails
       patch 'change_emails' => 'users/change_emails#update'
     end
   end
-	get 'drafts' => 'articles#drafts'
-	resources :articles, only: [:show, :new, :edit, :create, :update, :destroy]
+	resources :articles, only: [:show, :edit, :create, :update, :destroy]
 	resources :articles, only: [], controller: "articles/upvote" do
 		member do
 			patch 'upvote' => 'articles/upvote#upvote'

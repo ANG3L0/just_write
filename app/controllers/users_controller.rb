@@ -1,4 +1,18 @@
 class UsersController < ApplicationController
+	before_action :logged_in_user, only: [:drafts]
+	before_action :correct_user, only: [:drafts]
+
+	#shows all articles that current_user still own (e.g. drafts)
+	#difference between this and 'users#show' is that this needs to be correct_user
+	#anyone can view a user's posts that is published
+	def drafts
+		@user = current_user
+		@drafts = @user.articles.paginate(page: params[:page], per_page: 5).draft_and_in_order
+		respond_to do |format|
+			format.html
+			format.js
+		end
+	end
 
   def show
     @user = User.find(params[:id])

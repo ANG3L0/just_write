@@ -7,7 +7,7 @@ ready = ->
 					console.log('TIGGER JAVA');
 					imagepath = "<%= asset_path('ajax-loader.gif') %>";
 					$('.pagination').html('<img style="display: initial" id="loading" src=' + imagepath + ' alt="Loading..." title="Loading..." />')
-					$.ajax({ dataType: 'script' });
+					$.ajax({ });
 					$.getScript more_posts_url
 				return
 		return

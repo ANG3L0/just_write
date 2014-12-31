@@ -11,7 +11,7 @@ class ArticlesPublishTest < ActionDispatch::IntegrationTest
 
 	test "should be able to publish" do
 		log_in_as(@user)
-		get new_article_path(@user)
+		get new_user_article_path(@user)
 		assert_difference 'Article.count', 1 do
 		post articles_path, article: { title: "Shit archer says",
 																	 content: "LANA!!!!"
@@ -21,7 +21,7 @@ class ArticlesPublishTest < ActionDispatch::IntegrationTest
 
 	test "should not be able to publish invalid articles" do
 		log_in_as(@user)
-		get new_article_path(@user)
+		get new_user_article_path(@user)
 		assert_no_difference 'Article.count' do
 		post articles_path, article: { title: "     ",
 																	 content: "        "
@@ -32,7 +32,7 @@ class ArticlesPublishTest < ActionDispatch::IntegrationTest
 	test "should not see drafts in post" do
 	 #note: cannot post to draft so only draft articles will be from fixtures
 		log_in_as(@user)
-		get new_article_path(@user)
+		get new_user_article_path(@user)
 		assert_difference 'Article.count', 1 do
 		post articles_path, article: { title: "some post",
 																	 content: "some good content",
@@ -46,7 +46,7 @@ class ArticlesPublishTest < ActionDispatch::IntegrationTest
 
 	test "should see drafts only in draft-view after posting a non-draft post" do
 		log_in_as(@user)
-		get new_article_path(@user)
+		get new_user_article_path(@user)
 		assert_difference 'Article.count', 1 do
 		#post valid post
 		post articles_path, article: { title: "This is not a draft",
@@ -54,7 +54,7 @@ class ArticlesPublishTest < ActionDispatch::IntegrationTest
 																 }
 		end
 		#get draft page
-		get drafts_path(@user)
+		get user_drafts_path(@user)
 		assert_match "DraftKing", response.body
 		assert_no_match "This is not a draft", response.body
 	end
@@ -63,12 +63,14 @@ class ArticlesPublishTest < ActionDispatch::IntegrationTest
 		get login_path
 		log_in_as(@other)
 		assert_redirected_to @other
-		get new_article_path(@user)
+		get new_user_article_path(@user)
 		assert_redirected_to root_url
-		assert_no_difference 'Article.count' do
-			patch new_article_path(@user), article: { title: "hacker", content: "I hack this." }
+		assert_difference '@other.articles.count' do
+			post articles_path, article: { title: "hacker", content: "I hack this." }
 		end
-		assert_redirected_to root_url
+		assert_no_difference '@user.articles.count' do
+			post articles_path, article: { title: "hacker", content: "I hack this." }
+		end
 	end
 
 	test "should be able to delete posts for myself" do
@@ -76,7 +78,7 @@ class ArticlesPublishTest < ActionDispatch::IntegrationTest
 		assert_difference 'Article.count', -1 do
 			delete article_path(@user_article)
 		end
-		assert_redirected_to drafts_path(@user)
+		assert_redirected_to user_drafts_path(@user)
 	end
 
 	test "should not be able to delete posts for other users" do

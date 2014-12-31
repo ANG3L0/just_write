@@ -20,9 +20,9 @@
             </ul>
         </li>
 				<% if logged_in? %>
-					<li><%= link_to "New post", new_article_path(current_user) %></li>
+					<li><%= link_to "New post", new_user_article_path(current_user) %></li>
 					<li><%= link_to "My posts", current_user %></li>
-					<li><%= link_to "My drafts", drafts_path(current_user) %></li>
+					<li><%= link_to "My drafts", user_drafts_path(current_user) %></li>
 				<% end %>
 
         <!-- <li class="dropdown">
