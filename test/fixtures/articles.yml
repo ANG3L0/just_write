@@ -22,6 +22,15 @@ false_positive:
   created_at: <%= 30.seconds.ago %>
   updated_at: <%= 30.seconds.ago %>
 
+power_article:
+  title: "pow"
+  content: "errr"
+  draft: false
+  user: power
+  created_at: <%= 1.hour.ago %>
+  updated_at: <%= 1.hour.ago %>
+  rating: 500
+
 <% 50.times do |n| %>
 post_<%= n %>:
   content: <%= Faker::Lorem.paragraph(2) %>

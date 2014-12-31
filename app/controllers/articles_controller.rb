@@ -3,6 +3,13 @@ class ArticlesController < ApplicationController
 	before_action :correct_user_lookup, only: [:edit, :update, :destroy]
 	before_action :correct_user, only: [:new]
 
+	def random
+		@article = Article.where(draft: false).offset(rand(Article.count)).first;
+		respond_to do |format|
+			format.html { redirect_to article_path(@article) }
+			format.js
+		end
+	end
 
 	#show a particular post corresponding to a user
 	def show

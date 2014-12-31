@@ -17,11 +17,11 @@
 <nav class="navbar navbar-fixed-bottom col-md-2 col-md-offset-9">
 		<ul class="nav navbar-nav pull-right" id="random">
 			<li>
-				<%= link_to '#' do %>
-					<button type="button" class="btn btn-default btn-lg" id="rand-btn">
-						Random Article
-					</button>
-				<% end %>
+			<%= link_to random_path, remote: true do %>
+				<button type="button" class="btn btn-default btn-lg" id="rand-btn">
+					Random Article
+				</button>
+			<% end %>
 			</li>
 		</ul>
 </nav>

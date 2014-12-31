@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 
   get 'contact' => 'public_pages#contact'
   get 'about' => 'public_pages#about'
+	get 'random' => 'articles#random'
 
   get 'login' => 'sessions#new'
   post 'login' => 'sessions#create'
@@ -17,6 +18,7 @@ Rails.application.routes.draw do
       patch 'change_passwords' => 'users/change_passwords#update'
     end
   end
+
 
   resources :users, only: [] do
 		get 'drafts' => 'users#drafts'

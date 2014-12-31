@@ -1,4 +1,4 @@
-<% unless @my_article %>
+<% if logged_in? && !current_user?(@user) %>
 	<span>
 		<%= link_to upvote_article_path(@article.id), remote: true,
       method: :patch do  %>

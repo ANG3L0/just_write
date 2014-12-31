@@ -15,9 +15,11 @@
 			<%= render 'shared/flasher' %>
 		</div>
     <%= yield %>
-		<%= render 'layouts/botnav' %>
     <%= debug(params) if Rails.env.development? %>
+		<%= render 'layouts/botnav' %>
   </div>
+  <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+	</div>
 
 </body>
 </html>

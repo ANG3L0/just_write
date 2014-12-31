@@ -8,6 +8,7 @@ class ArticleVotingTest < ActionDispatch::IntegrationTest
 		@other = users(:arthur)
 		@other_article = @other.articles.first
 		@power_user = users(:power)
+		@power_article = articles(:power_article)
   end
 
 	test "should not be able to vote if not logged in" do
@@ -168,6 +169,17 @@ class ArticleVotingTest < ActionDispatch::IntegrationTest
 			xhr :patch, upvote_article_path(@other_article.id), nil, { HTTPS: "on", HTTP_REFERER: user_url(@other) }
 			@power_user.reload
 		end
+	end
+
+	test "should see voting icons when logged in" do
+		log_in_as(@user)
+		get root_url
+		assert_select "a[href=?]", upvote_article_path(@power_article)
+	end
+
+	test "should not see voting icons when not logged in" do
+		get root_url
+		assert_select "a[href=?]", upvote_article_path(@power_article), false
 	end
 
 end

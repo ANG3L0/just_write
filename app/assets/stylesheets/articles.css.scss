@@ -123,6 +123,24 @@ span.score {
 		color: gray;
 	}
 }
+
+.modal-body .content {
+	width: 30em;
+	font-size: 18px;
+	font-family: Georgia, serif;
+	line-height: 1.5;
+	color: #070707;
+	margin-bottom: 1em;
+	margin-top: 0.5em;
+	white-space: pre-wrap;
+}
+
+.nostyle {
+	a{
+		text-decoration: none;
+		color: black;
+	}
+}
 //.draft-edit-btn2 {
 //	opacity: 0;
 //	display: inline-block;

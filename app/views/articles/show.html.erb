@@ -3,13 +3,7 @@
 		<span class="title"><%= @article.title %></span>
 		<div class="content"><%= @article.content %></div>
 		<div class="list-footer">
-			<%= render 'shared/rating' %>
-			<% @user = @article.user %>
-			<% unless @my_article %>
-				<span class="timestamp"> by <%= link_to @user.name, @user %></span>
-			<% end %>
-			<span class="timestamp">Published <%= time_ago_in_words(@article.updated_at) %> ago</span>
-			<%= render 'shared/thumbs' %>
+			<%= render 'shared/article_footer' %>
 		</div>
 	</div>
 </div>
