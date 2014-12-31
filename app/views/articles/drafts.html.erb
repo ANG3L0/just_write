@@ -3,11 +3,9 @@
 		<% if @drafts.any? %>
 			<ol class="drafts" id="artview">
 				<li></li>
-				<%= render partial: 'users/draft', collection: @drafts  %>
+				<%= render partial: 'articles/draft', collection: @drafts  %>
 			</ol>
-			<div class="col-md-offset-6" id="infinite-scrolling">
 				<%= will_paginate @drafts %>
-			</div>
 		<% end %>
 	</div>
 </div>

@@ -1,7 +1,4 @@
-<% puts '-----' %>
-<% puts @drafts.next_page %>
-<% puts '-----' %>
-$('#fartview').append('<%= j render @drafts %>');
+$('#artview').append("<%= escape_javascript(render :partial => 'users/draft', :collection => @drafts) %>");
 <% if @drafts.next_page %>
 	$('.pagination').replaceWith('<%= j will_paginate @drafts %>')
 <% else %>
