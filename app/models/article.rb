@@ -9,5 +9,4 @@ class Article < ActiveRecord::Base
 	scope :published, -> { where(draft: false) }
 	scope :published_and_in_time_order, -> { published.order(updated_at: :desc) }
 	scope :published_and_in_score_order, -> { published.order(rating: :desc, updated_at: :desc) }
-	#default_scope -> { order(updated_at: :desc) } #used for integration test mainly
 end
