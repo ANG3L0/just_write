@@ -9,14 +9,16 @@ class Articles::DownvoteController < ApplicationController
 		new_score = @article.rating - User.voting_power(current_user)
 		#suck score out of voter; update voter score
 		new_voter_score = current_user.score_out + 1
-		#update attributes and save
-		@article.update_attribute(:rating, new_score)
+		#update article score
+		@article.rating = new_score
 		#if downvoted enough to be 0, do not let score_in be negative
-		if (new_voted_score >= 0)
-			@user.update_attribute(:score_in, new_voted_score)
+		if (new_voted_score > 0)
+			@user.score_in = new_voted_score
+		else 
+			@user.score_in = 0
 		end
 		current_user.update_attribute(:score_out, new_voter_score)
-		if @article.save && current_user.save && @user.save
+		if @user.save && @article.save
 			respond_to do |format|
 				format.html { redirect_to :back }
 				format.js
