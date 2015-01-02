@@ -6,7 +6,7 @@ class ArticlesController < ApplicationController
 	def random
 		@article = Article.where(draft: false).offset(rand(Article.count)).first;
 		respond_to do |format|
-			format.html { redirect_to article_path(@article) }
+			format.html { redirect_to article_url(@article) }
 			format.js
 		end
 	end
@@ -33,7 +33,7 @@ class ArticlesController < ApplicationController
 		if @article.save
 			if params[:submit] == 'Save draft'
 				@article.update_attribute(:draft, true)
-				redirect_to user_drafts_path(current_user)
+				redirect_to user_drafts_url(current_user)
 			else
 				flash[:success] = "Article published!"
 				@article.update_attribute(:draft, false)
@@ -55,7 +55,7 @@ class ArticlesController < ApplicationController
 			if params[:submit] == 'Save draft'
 				flash[:success] = "Draft saved!"
 				@article.update_attribute(:draft, true)
-				redirect_to user_drafts_path(current_user)
+				redirect_to user_drafts_url(current_user)
 			else
 				flash[:success] = "Article published!"
 				@article.update_attribute(:draft, false)
@@ -70,7 +70,7 @@ class ArticlesController < ApplicationController
 	def destroy
 		@article.destroy
 		flash[:success] = "Post deleted"
-		redirect_to user_drafts_path(current_user)
+		redirect_to user_drafts_url(current_user)
 	end
 
 	private 

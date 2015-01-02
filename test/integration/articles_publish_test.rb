@@ -78,7 +78,7 @@ class ArticlesPublishTest < ActionDispatch::IntegrationTest
 		assert_difference 'Article.count', -1 do
 			delete article_path(@user_article)
 		end
-		assert_redirected_to user_drafts_path(@user)
+		assert_redirected_to user_drafts_url(@user)
 	end
 
 	test "should not be able to delete posts for other users" do
