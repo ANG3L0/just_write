@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
 	has_many :articles
+  has_secure_password
   attr_accessor :remember_token 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	validates :score_in, presence: true, numericality: { greater_than_or_equal_to: 0 }
@@ -7,7 +8,6 @@ class User < ActiveRecord::Base
   validates :name, presence: true, length: { maximum: 50 }
   validates :email, presence: true, length: { maximum: 100 },
     format: { with: VALID_EMAIL_REGEX }, uniqueness: { case_sensitive: false }
-  has_secure_password
   #allow_blank true is ok since has_secure_password validates on object creation
   #only other time password touched is changing passwords (ok), and changing emails
   #where changing emails interprets password as < 6 length since we don't .require it
