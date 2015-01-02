@@ -4,8 +4,8 @@ class Articles::UpvoteController < ApplicationController
 
 	def upvote
 		#@user here is the user being voted on as seen in before_action
-		new_voted_score = @user.score_in + User.voting_power(current_user)
-		new_score = @article.rating + User.voting_power(current_user)
+		new_voted_score = @user.score_in + current_user.voting_power
+		new_score = @article.rating + current_user.voting_power
 		#suck score out of voter
 		new_voter_score = current_user.score_out + 1
 		#update attributes and save

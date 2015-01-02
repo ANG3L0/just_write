@@ -5,8 +5,8 @@ class Articles::DownvoteController < ApplicationController
 	def downvote
 		#@user here is the user being voted on as seen in before_action
 		#update voted user score and update articles score
-		new_voted_score = @user.score_in - User.voting_power(current_user)
-		new_score = @article.rating - User.voting_power(current_user)
+		new_voted_score = @user.score_in - current_user.voting_power
+		new_score = @article.rating - current_user.voting_power
 		#suck score out of voter; update voter score
 		new_voter_score = current_user.score_out + 1
 		#update article score

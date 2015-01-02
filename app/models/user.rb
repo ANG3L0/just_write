@@ -14,17 +14,8 @@ class User < ActiveRecord::Base
   #allow_blank works around this issue
   validates :password, length: { minimum: 6 }, allow_blank: true
 
-  def User.digest(string)
-    cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost 
-    BCrypt::Password.create(string, cost: cost)
-  end
-
-  def User.new_token
-    SecureRandom.urlsafe_base64
-  end
-
-	def User.voting_power(user)
-		user.score_in/user.score_out
+	def voting_power
+		self.score_in/self.score_out
 	end
 
   def remember
@@ -40,5 +31,17 @@ class User < ActiveRecord::Base
     return false if remember_digest.nil?
     BCrypt::Password.new(remember_digest).is_password?(remember_token)
   end
+
+	class << self
+		def digest(string)
+			cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST : BCrypt::Engine.cost 
+			BCrypt::Password.create(string, cost: cost)
+		end
+
+		def new_token
+			SecureRandom.urlsafe_base64
+		end
+
+	end
 
 end

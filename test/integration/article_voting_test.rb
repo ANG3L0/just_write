@@ -90,7 +90,7 @@ class ArticleVotingTest < ActionDispatch::IntegrationTest
 	test "should have voting power decrease to 0 after downvoting enough times" do
 		log_in_as(@user)
 		get user_url(@other)
-		assert_difference 'User.voting_power(@user)', -1 do
+		assert_difference '@user.voting_power', -1 do
 			#10 times is the default number of times for a new user to lose their voting power
 			5.times do
 				#after 3 times, articles.first is referring to the second post since is now the first one
@@ -113,13 +113,13 @@ class ArticleVotingTest < ActionDispatch::IntegrationTest
 			end
 		end
 		#make sure massive voting won't give you negative voting power
-		assert_equal User.voting_power(@user), 0
+		assert_equal @user.voting_power, 0
 	end
 
 	test "should have no voting power after upvoting enough times" do
 		log_in_as(@user)
 		get user_url(@other)
-		assert_difference 'User.voting_power(@user)', -1 do
+		assert_difference '@user.voting_power', -1 do
 			5.times do
 				xhr :patch, upvote_article_path(@other.articles.first.id), nil,  { HTTPS: "on", HTTP_REFERER: user_url(@other) }
 				patch upvote_article_path(@other.articles.first.id), nil,  { HTTPS: "on", HTTP_REFERER: user_url(@other) }
