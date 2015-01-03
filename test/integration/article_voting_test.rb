@@ -97,6 +97,7 @@ class ArticleVotingTest < ActionDispatch::IntegrationTest
 				xhr :patch, downvote_article_path(@other.articles.first.id), nil,  { HTTPS: "on", HTTP_REFERER: user_url(@other) }
 				patch downvote_article_path(@other.articles.first.id), nil,  { HTTPS: "on", HTTP_REFERER: user_url(@other) }
 			end
+			assert_not flash.empty?
 			@user.reload
 		end
 		#now I have no power, my votes should not matter up or down
@@ -124,6 +125,7 @@ class ArticleVotingTest < ActionDispatch::IntegrationTest
 				xhr :patch, upvote_article_path(@other.articles.first.id), nil,  { HTTPS: "on", HTTP_REFERER: user_url(@other) }
 				patch upvote_article_path(@other.articles.first.id), nil,  { HTTPS: "on", HTTP_REFERER: user_url(@other) }
 			end
+			assert_not flash.empty?
 			@user.reload
 		end
 	end

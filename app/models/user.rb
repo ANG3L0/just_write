@@ -27,6 +27,14 @@ class User < ActiveRecord::Base
     update_attribute(:remember_digest, nil)
   end
 
+	def transition_to_no_power(prev_power)
+		no_power = false
+		if (self.voting_power == 0 && prev_power != 0) 
+			no_power = true
+		end
+		return no_power
+	end
+
   def authenticated?(remember_token)
     return false if remember_digest.nil?
     BCrypt::Password.new(remember_digest).is_password?(remember_token)

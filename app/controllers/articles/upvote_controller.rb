@@ -4,18 +4,28 @@ class Articles::UpvoteController < ApplicationController
 
 	def upvote
 		#@user here is the user being voted on as seen in before_action
-		new_voted_score = @user.score_in + current_user.voting_power
+		@user.score_in +=current_user.voting_power
 		new_score = @article.rating + current_user.voting_power
 		#suck score out of voter
 		new_voter_score = current_user.score_out + 1
 		#update attributes and save
-		@article.update_attribute(:rating, new_score)
-		@user.update_attribute(:score_in, new_voted_score)
+		@article.rating = new_score
+		prev_power = current_user.voting_power
 		current_user.update_attribute(:score_out, new_voter_score)
-		if @article.save && current_user.save && @user.save
+		@no_power = current_user.transition_to_no_power(prev_power)
+		if @user.save && @article.save
 			respond_to do |format|
-				format.html { redirect_to :back }
-				format.js
+				format.html { 
+					if @no_power
+						flash[:danger] = "You now have no voting power. Write more articles to get more!"
+					end
+					redirect_to :back 
+				}
+				format.js { 
+					if @no_power
+						flash.now[:danger] = "You now have no voting power. Write more articles to get more!"
+					end
+				}
 			end
 		else 
 			# no idea how upvoting can invalidate a post but o well

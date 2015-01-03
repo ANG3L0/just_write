@@ -1,0 +1,8 @@
+<% if logged_in? && !current_user?(@user) %>
+	<span>
+		<%= link_to upvote_article_path(@article.id), remote: true,
+      method: :patch do  %>
+				<i class="thumbsup fa fa-caret-square-o-up fa-2x icon-2x"></i>
+		<% end %>
+	</span>
+<% end %>

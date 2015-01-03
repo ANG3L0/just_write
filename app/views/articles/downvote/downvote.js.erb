@@ -1,8 +1,12 @@
 $("#vote-panel").html("<%= j (render 'layouts/vote_panel') %>");
+//if article dies, we get rid of the article
 if (<%= @article.rating %> >= 0) {
 	$("#article-rating<%= @article.id %>").html("<%= j (render 'shared/rating') %>");
 } else {
-	$('#flasher').html("<%= j (render 'shared/flasher') %>").fadeIn().fadeOut(3000);
 	$('#single-article').fadeOut(3000);
 	$("#article-<%= @article.id %>").fadeOut(3000);
+}
+//if article dies or if we lose voting power, we display a flash
+if (<%= @article.rating %> < 0 || <%= @no_power %>) {
+	$('#flasher').html("<%= j (render 'shared/flasher') %>").fadeIn().fadeOut(10000);
 }

@@ -1,4 +1,4 @@
-<% if current_user.voting_power > 1 %>
+<% if current_user.voting_power >= 1 %>
 	<li class="label label-success" id="voting-power">Voting power: <%= current_user.voting_power %></li>
 <% else %>
 	<li class="label label-danger" id="voting-power">Voting power: <%= current_user.voting_power %></li>

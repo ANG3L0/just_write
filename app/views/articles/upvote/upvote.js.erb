@@ -1,1 +1,6 @@
-	$("#article-rating<%= @article.id %>").html("<%= j (render 'shared/rating') %>")
+$("#vote-panel").html("<%= j (render 'layouts/vote_panel') %>");
+$("#article-rating<%= @article.id %>").html("<%= j (render 'shared/rating') %>")
+//if article dies or if we lose voting power, we display a flash
+if (<%= @article.rating %> < 0 || <%= @no_power %>) {
+	$('#flasher').html("<%= j (render 'shared/flasher') %>").fadeIn().fadeOut(10000);
+}
