@@ -3,7 +3,7 @@
 		<% if @drafts.any? %>
 			<ol class="drafts" id="artview">
 				<li></li>
-				<%= render partial: 'articles/draft', collection: @drafts  %>
+				<%= render partial: 'users/draft', collection: @drafts  %>
 			</ol>
 				<%= will_paginate @drafts %>
 		<% end %>

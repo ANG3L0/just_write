@@ -70,19 +70,34 @@
 
 .list-footer {
 	overflow: hidden;
-	vertical-align: middle;
+}
+
+.list-footer-right {
+	overflow: hidden;
+	float: right;
+}
+
+.list-footer-left {
+	display: table-cell;
+	vertical-align: top;	
+	overflow: hidden;
+	float: left;
 }
 
 span.timestamp{
 	float: right;
   color: $gray-light;
 	padding-right: 5px;
+	padding-bottom: 0px;
+	margin-top: 20px;
 }
 
 span.score {
-	float: right;
-	font-size: 0.9em;
-	margin-right: 5px;
+	font-size: 1.2em;
+	display: inline-block;
+	margin-top: 15px;
+	margin-left: 5px;
+	padding-bottom: 3px;
 }
 
 .draft-edit-btn {
@@ -110,10 +125,10 @@ span.score {
 }
 
 .thumbsup {
-	padding-bottom: 5px;
 	color: green;
 }
 .thumbsdown {
+	display: block;
 	color: red;
 }
 

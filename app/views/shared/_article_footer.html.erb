@@ -1,7 +1,14 @@
-<%= render 'shared/rating' %>
 <% @user = @article.user %>
-<% unless current_user?(@user) %>
-	<span class="timestamp"> by <%= link_to @user.name, @user %></span>
-<% end %>
+<div class="list-footer-right">
+	<% unless current_user?(@user) %>
+		<span class="timestamp"> by <%= link_to @user.name, @user %></span>
+	<% end %>
 <span class="timestamp">Published <%= time_ago_in_words(@article.updated_at) %> ago</span>
-<%= render 'shared/thumbs' %>
+</div>
+<div class="list-footer-left">
+	<%= render 'shared/thumbsup' %>
+	<div class="down">
+		<%= render 'shared/thumbsdown' %>
+	</div>
+</div>
+<%= render 'shared/rating' %>

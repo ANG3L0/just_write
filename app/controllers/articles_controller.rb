@@ -4,7 +4,8 @@ class ArticlesController < ApplicationController
 	before_action :correct_user, only: [:new]
 
 	def random
-		@article = Article.where(draft: false).offset(rand(Article.count)).first;
+		published = Article.where(draft: false)
+		@article = published.offset(rand(published.count)).first;
 		respond_to do |format|
 			format.html { redirect_to article_url(@article) }
 			format.js
