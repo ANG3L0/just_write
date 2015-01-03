@@ -1,3 +1,7 @@
+//used for vertical limit for each post
+$font-size: 18px;
+$line-height: 1.5;
+$lines-to_show: 10;
 .articles {
 	list-style: none;
 	li {
@@ -12,10 +16,20 @@
 		white-space: pre-wrap; //allows whitespace preservation; however, the application code also needs to be shrunk
 	}
 	.content {
+		//non webkit line clipping
+		display: block;
+		max-height: $font-size*$line-height*$lines-to-show;
+		//webkit line clipping
+		display: -webkit-box;
+		font-size: $font-size;
+		line-height: $line-height;
+		-webkit-line-clamp: $lines-to-show;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		//width and font and other attributes
 		width: 38em;
-		font-size: 18px;
 		font-family: Georgia, serif;
-		line-height: 1.5;
 		color: #070707;
 		margin-bottom: 1em;
 		margin-top: 0.5em;
