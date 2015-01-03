@@ -12,11 +12,7 @@ class Articles::DownvoteController < ApplicationController
 		#update article score
 		@article.rating = new_score
 		#if downvoted enough to be 0, do not let score_in be negative
-		if (new_voted_score > 0)
-			@user.score_in = new_voted_score
-		else 
-			@user.score_in = 0
-		end
+		@user.score_in = new_voted_score > 0 ? new_voted_score : 0
 		current_user.update_attribute(:score_out, new_voter_score)
 		if @user.save && @article.save
 			respond_to do |format|
