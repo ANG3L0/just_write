@@ -35,6 +35,17 @@ $lines-to_show: 10;
 		margin-top: 0.5em;
 		white-space: pre-wrap;
 	}
+	.noclip {
+		//width and font and other attributes
+		font-size: $font-size;
+		line-height: $line-height;
+		width: 38em;
+		font-family: Georgia, serif;
+		color: #070707;
+		margin-bottom: 1em;
+		margin-top: 0.5em;
+		white-space: pre-wrap;
+	}
 }
 
 
